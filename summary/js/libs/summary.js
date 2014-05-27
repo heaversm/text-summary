@@ -77,6 +77,7 @@
 						if(strip_s && sentences_dict[strip_s] > max_value) {
 							max_value     = sentences_dict[strip_s];
 							best_sentence = sentence;
+							console.log(best_sentence);
 						}
 					});
 					//console.log(max_value,best_sentence);
