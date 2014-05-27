@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SUMMARIZATION</title>
+</head>
+<body>
+  <form name='summarize'>
+    <textarea name='content' rows='5' cols='100'></textarea>
+    <select name='range'>
+      <option value="1" selected="selected">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button type='submit' name='doit'>Summarize</button>
+    <div class='content'></div>
+  </form>
+
+  <script src='http://code.jquery.com/jquery-latest.min.js'></script>
+  <script src='http://underscorejs.org/underscore-min.js'></script>
+  <script src='js/libs/summary.js'></script>
+
+  <script>
+    (function() {
+      $('form[name=summarize]').on('submit', function(e) {
+        e.preventDefault();
+        var content = $(this).find('textarea[name=content]').val();
+        var range = parseInt($(this).find('select[name=range]').val());
+        Summary.summarize(null, content, range, function(err, summary) {
+          $('.content').text(summary);
+        });
+
+        return false;
+      });
+    }());
+  </script>
+</body>
+</html>
