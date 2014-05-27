@@ -2,45 +2,115 @@
 <html>
 <head>
   <title>SUMMARIZATION</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="css/spray-style.css" rel="stylesheet">
   <style>
+  .container { margin-top: 20px; }
+
+  #spray_container {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+  }
+
+  #word-container {
+    display: none;
+  }
+
+  #word-container.active {
+    display: block;
+  }
 
   </style>
 </head>
 <body>
-  <form name='summarize'>
-    <textarea name='content' rows='5' cols='100' placeholder="Paste Text"></textarea><br/>
+  <div class="container" id="form-container">
+  <form name='summarize' role="form">
+    <textarea class="form-control" name='content' rows='5' cols='100' placeholder="Paste Text"></textarea><br/>
     <label for="range">Summary Length (in paragraphs)</label>
-    <select name='range'>
+    <select name='range' class="form-control">
       <option value="1" selected="selected">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
       <option value="5">5</option>
     </select><br/>
-    <button type='submit' name='doit'>Summarize</button>
+    <label for="wpm">Speed</label>
+    <select id="wpm" name="wpm" class="form-control">
+      <option value="100">100 wpm</option>
+      <option value="200">200 wpm</option>
+      <option value="300">300 wpm</option>
+      <option value="400">400 wpm</option>
+      <option value="500">500 wpm</option>
+    </select><br/>
+    <button class="btn btn-default" type='submit' name='doit'>Summarize</button>
   </form>
+  </div>
 
-  <div class='content'></div>
+  <div class='summary-content container'></div>
+
+  <div class="container" id="word-container">
+    <div id="spray_container">
+      <div id="spray_result">&nbsp;</div>
+    </div>
+    <div class="container">
+      <button id="start" class="btn btn-success" type='button' name='start'>Start</button>
+      <button id="stop" class="btn btn-danger" type='button' name='stop'>Stop</button>
+    </div>
+  </div>
+
+
 
   <script src='http://code.jquery.com/jquery-latest.min.js'></script>
   <script src='http://underscorejs.org/underscore-min.js'></script>
+  <script src="js/libs/spray-reader.js"></script>
   <script src='js/libs/summary.js'></script>
 
   <script>
     (function() {
+
+      var sprayReader = null; //reads wpm
+
       $('form[name=summarize]').on('submit', function(e) {
         e.preventDefault();
         var content = $(this).find('textarea[name=content]').val();
         var range = parseInt($(this).find('select[name=range]').val());
-        /*Summary.summarize(null, content, range, function(err, summary) {
-          $('.content').text(summary);
-        });*/
+        var speed = parseInt($(this).find('#wpm').val());
+
         Summary.getSortedSentences(content, range, function(err, summary) {
+          $('.summary-content').empty();
+          if (sprayReader != null){
+            sprayReader.stop();
+          }
           $.each(summary, function( index, sentence ) {
-            $('.content').append(sentence);
+            $('.summary-content').append(sentence);
           });
 
+          sprayReader = new SprayReader('#spray_result');
+          var inputText = $('.summary-content').text();
+          sprayReader.setInput(inputText);
+          sprayReader.setWpm(speed);
+          $('#word-container').addClass('active');
+          sprayReader.start();
+
         });
+
+        $('#start').click(function(event) {
+            sprayReader.start();
+        });
+
+        $('#stop').click(function(event) {
+          sprayReader.stop();
+        });
+
+        $('#wpm').on('change',function(){
+          var newWpm = $(this).val();
+          sprayReader.stop();
+          sprayReader.setWpm(newWpm);
+          sprayReader.start();
+        })
 
         return false;
       });
