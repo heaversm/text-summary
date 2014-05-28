@@ -89,6 +89,11 @@
 		getSortedSentences: function(paragraph, sentences_dict, n, callback) {
 			var self = this;
 			self.splitContentToSentences(paragraph, function(sentences) {
+
+				var numSentences = sentences.length;
+				var summaryPercentage = n/100; //get the percentage of all sentences to display
+				n = Math.round(numSentences*summaryPercentage);
+
 				if (!sentences) return callback('');
 				if (sentences.length < 2) return callback('');
 

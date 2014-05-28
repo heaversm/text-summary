@@ -9,7 +9,7 @@
   <link href="css/spray-style.css" rel="stylesheet">
   <link href="css/bootstrap-slider.css" rel="stylesheet">
   <style>
-  .container { margin-top: 20px; }
+  .container { margin-top: 20px; padding: 0; }
 
   #spray_container {
     border-top: 1px solid #eee;
@@ -30,16 +30,10 @@
   <div class="container" id="form-container">
   <form name='summarize' role="form">
     <textarea class="form-control" name='content' rows='10' cols='100' placeholder="Paste Text"></textarea><br/>
-    <label for="range">Summary Length (in paragraphs)</label><br/>
-    <input id="sliderInput" data-slider-id='slider' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="5"/><br/>
-    <label for="wpm">Speed</label>
-    <select id="wpm" name="wpm" class="form-control">
-      <option value="100">100 wpm</option>
-      <option value="200">200 wpm</option>
-      <option value="300">300 wpm</option>
-      <option value="400">400 wpm</option>
-      <option value="500">500 wpm</option>
-    </select><br/>
+    <label for="range">Summary Length (%)</label><br/>
+    <input id="sliderInput" data-slider-id='slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="10" data-slider-value="50"/><br/>
+    <label for="wpm">Speed (wpm)</label><br/>
+    <input id="wpm" data-slider-id='slider' type="text" data-slider-min="100" data-slider-max="1000" data-slider-step="100" data-slider-value="100"/><br/><br/>
     <button class="btn btn-default" type='submit' name='doit'>Summarize</button>
   </form>
   </div>
@@ -65,18 +59,24 @@
   <script src="js/libs/bootstrap-slider.js"></script>
   <script>
     (function() {
+      var sprayReader = null; //reads wpm
+
       $('#sliderInput').slider().on('slideStop',function(){
         $('form[name=summarize]').submit();
       });
-      var sprayReader = null; //reads wpm
 
-
+      $('#wpm').slider().on('slideStop',function(){
+        var newWpm = $(this).slider('getValue');
+        sprayReader.stop();
+        sprayReader.setWpm(newWpm);
+        sprayReader.start();
+      });
 
       $('form[name=summarize]').on('submit', function(e) {
         e.preventDefault();
         var content = $(this).find('textarea[name=content]').val();
         var range = $('#sliderInput').slider('getValue');
-        var speed = parseInt($(this).find('#wpm').val());
+        var speed = $('#wpm').slider('getValue');
 
         Summary.getSortedSentences(content, range, function(err, summary) {
           $('.summary-content').empty();
@@ -103,13 +103,6 @@
         $('#stop').click(function(event) {
           sprayReader.stop();
         });
-
-        $('#wpm').on('change',function(){
-          var newWpm = $(this).val();
-          sprayReader.stop();
-          sprayReader.setWpm(newWpm);
-          sprayReader.start();
-        })
 
         return false;
       });
