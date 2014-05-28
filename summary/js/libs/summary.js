@@ -15,6 +15,30 @@
 	if(!_ && (typeof require !== 'undefined')) _ = require('lodash-node/underscore');
 
 	var Toolkit = {
+		getPOS: function(content,callback){
+
+			var wordArray = new Lexer().lex(content);
+			var taggedWords = new POSTagger().tag(wordArray);
+			return taggedWords;
+		},
+		getKeywords: function(taggedWords){
+			var matchArray = ['NN','NNS','NNP','NNPS'];
+			var keywordArray = $.each(taggedWords,function(index,word){
+				var arrayIndex = $.inArray(word[1], matchArray);
+				if (arrayIndex > -1){
+					word[2] = true;
+				} else {
+					word[2] = false;
+				}
+			});
+			return keywordArray;
+		},
+		tokenizeSentences: function(sentences){
+			$.each(sentences,function(index,sentence){
+				console.log(sentence);
+				var wordArray = sentence.split(/[^a-zA-Z'-]+/);
+			});
+		},
 		splitContentToSentences: function (content, callback) {
 			if(content.indexOf('.') === -1) {
 				return callback(false);
@@ -186,6 +210,7 @@
 				if(hasTitle) summary.push(title); // Store the title.
 
 				_.each(paragraphs, function(p) {
+
 					Toolkit.getBestSentence(p, dict, range, function(sentence) {
 						if(sentence) summary.push(sentence);
 					});
@@ -197,6 +222,13 @@
 			});
 		});
 	};
+
+	Summary.getKeywords = function(summary,callback){
+
+		var taggedSummary = Toolkit.getPOS(summary);
+		var keywordArray = Toolkit.getKeywords(taggedSummary);
+		callback(keywordArray);
+	}
 
 	Summary.getSortedSentences = function(content, n, callback) {
 		if (typeof(n) === 'function') {

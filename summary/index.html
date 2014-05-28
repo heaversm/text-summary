@@ -32,6 +32,10 @@
     color: red;
   }
 
+  .keyword {
+    color: #428bca;
+  }
+
   </style>
 </head>
 <body>
@@ -46,13 +50,15 @@
     <label for="wpm">Speed (wpm)</label><br/>
     <input id="wpm" data-slider-id='slider' type="text" data-slider-min="100" data-slider-max="1000" data-slider-step="100" data-slider-value="100"/><br/><br/>
     <button class="btn btn-default" type='submit' name='doit'>Summarize</button>
+
   </form>
   </div>
 
   <div class='summary-content container'></div>
 
   <div class="container" id="word-container">
-    <div id="spray_container">
+    <button id="keywords" class="btn btn-primary" type='button' name='keywords'>Keywords</button>
+    <div id="spray_container" class="container">
       <div id="spray_result">&nbsp;</div>
     </div>
     <div class="container">
@@ -68,6 +74,9 @@
   <script src="js/libs/spray-reader.js"></script>
   <script src='js/libs/summary.js'></script>
   <script src="js/libs/bootstrap-slider.js"></script>
+  <script src="js/libs/lexer.js"></script>
+  <script src="js/libs/lexicon.js_"></script>
+  <script src="js/libs/POSTagger.js"></script>
   <script>
 
   //Description of Algorithm
@@ -81,6 +90,9 @@
 
   //Speed reader adapted from:
   //https://github.com/chaimpeck/spray
+
+  //POS abbreviations:
+  //http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 
 
     (function() {
@@ -115,18 +127,9 @@
           if (prevSummary != null){
             if (prevSummary.length > curSummary.length){ //we have reduced the summary
               summaryReduced = true;
-              /*var sentenceStatus = [];
-              var diffArray = $.grep(prevSummary, function(el){
 
-                var sentenceIndex = $.inArray(el, curSummary);
-                if (sentenceIndex != -1){
-                  unchangedSentences.push(sentenceIndex);
-                }
-                return $.inArray(el, curSummary) == -1
-              });*/
             } else if (prevSummary.length < curSummary.length) { //we have lengthened the summary
               summaryReduced = false;
-              //var diffArray = $.grep(curSummary, function(el){return $.inArray(el, prevSummary) == -1});
             }
 
           }
@@ -188,6 +191,23 @@
 
         $('#stop').click(function(event) {
           sprayReader.stop();
+        });
+
+        $('#keywords').on('click',function(){
+          var summaryContent = $('.summary-content').text();
+          Summary.getKeywords(summaryContent,function(keywordArray){
+            sprayReader.stop();
+            $('.summary-content').empty();
+            $.each(keywordArray,function(index,word){
+              if (word[2] == true){
+                var $word = $('<span class="keyword">' + word[0] + ' </span>');
+              } else {
+                var $word = word[0] + " ";
+              }
+              $('.summary-content').append($word);
+            });
+            startSprayReader();
+          })
         });
 
         return false;
