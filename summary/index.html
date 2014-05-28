@@ -24,6 +24,14 @@
     display: block;
   }
 
+  .add {
+    color: green;
+  }
+
+  .remove {
+    color: red;
+  }
+
   </style>
 </head>
 <body>
@@ -61,8 +69,24 @@
   <script src='js/libs/summary.js'></script>
   <script src="js/libs/bootstrap-slider.js"></script>
   <script>
+
+  //Description of Algorithm
+  //http://thetokenizer.com/2013/04/28/build-your-own-summary-tool/
+
+  //Better summarization algorithms:
+  //http://sourceforge.net/projects/opennlp/files/OpenNLP%20Tools/1.5.0/
+
+  //Codebase adapted from:
+  //https://github.com/jbrooksuk/node-summary
+
+  //Speed reader adapted from:
+  //https://github.com/chaimpeck/spray
+
+
     (function() {
       var sprayReader = null; //reads wpm
+
+      var prevSummary = null, curSummary = null;
 
       $('#sliderInput').slider().on('slideStop',function(){
         $('form[name=summarize]').submit();
@@ -82,22 +106,81 @@
         var speed = $('#wpm').slider('getValue');
 
         Summary.getSortedSentences(content, range, function(err, summary) {
+
+          prevSummary = curSummary;
+          curSummary = summary;
+          var summaryReduced = false;
+          var sentenceObjectArray = [];
+
+          if (prevSummary != null){
+            if (prevSummary.length > curSummary.length){ //we have reduced the summary
+              summaryReduced = true;
+              /*var sentenceStatus = [];
+              var diffArray = $.grep(prevSummary, function(el){
+
+                var sentenceIndex = $.inArray(el, curSummary);
+                if (sentenceIndex != -1){
+                  unchangedSentences.push(sentenceIndex);
+                }
+                return $.inArray(el, curSummary) == -1
+              });*/
+            } else if (prevSummary.length < curSummary.length) { //we have lengthened the summary
+              summaryReduced = false;
+              //var diffArray = $.grep(curSummary, function(el){return $.inArray(el, prevSummary) == -1});
+            }
+
+          }
+
+
           $('.summary-content').empty();
           if (sprayReader != null){
             sprayReader.stop();
           }
-          $.each(summary, function( index, sentence ) {
-            $('.summary-content').append(sentence);
-          });
 
+          if (summaryReduced){
+            $.each(prevSummary, function( index, sentence ) {
+              var sentenceIndex = $.inArray(sentence, curSummary);
+              if (sentenceIndex == -1){
+                var $sentence = $('<span class="remove">' + sentence + '</span>');
+                $('.summary-content').append($sentence);
+              } else {
+                $('.summary-content').append(sentence);
+              }
+            });
+
+            setTimeout(function(){
+              $('.remove').remove();
+              startSprayReader();
+            },2000);
+
+          } else { //summary not reduced
+            $.each(summary, function( index, sentence ) {
+              var sentenceIndex = $.inArray(sentence, prevSummary);
+              if (sentenceIndex == -1){
+                var $sentence = $('<span class="add">' + sentence + '</span>');
+                $('.summary-content').append($sentence);
+              } else {
+                $('.summary-content').append(sentence);
+              }
+            });
+
+            setTimeout(function(){
+              $('.add').removeClass('add');
+              startSprayReader();
+            },2000);
+          }
+
+        });
+
+        startSprayReader = function(){
+          sprayReader = null;
           sprayReader = new SprayReader('#spray_result');
           var inputText = $('.summary-content').text();
           sprayReader.setInput(inputText);
           sprayReader.setWpm(speed);
           $('#word-container').addClass('active');
           sprayReader.start();
-
-        });
+        }
 
         $('#start').click(function(event) {
             sprayReader.start();
