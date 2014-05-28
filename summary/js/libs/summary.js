@@ -16,17 +16,25 @@
 
 	var Toolkit = {
 		getPOS: function(content,callback){
-
 			var wordArray = new Lexer().lex(content);
 			var taggedWords = new POSTagger().tag(wordArray);
 			return taggedWords;
 		},
 		getKeywords: function(taggedWords){
-			var matchArray = ['NN','NNS','NNP','NNPS'];
+			var nounArray = ['NN','NNS','NNP','NNPS'];
+			var verbArray = ['VB','VBD','VBN','VBP','VBZ','NNP','NNPS'];
+
 			var keywordArray = $.each(taggedWords,function(index,word){
-				var arrayIndex = $.inArray(word[1], matchArray);
+				var arrayIndex = $.inArray(word[1], nounArray);
 				if (arrayIndex > -1){
-					word[2] = true;
+					var nextWord = taggedWords[index+1];
+					var nextIndex = $.inArray(nextWord[1], verbArray);
+					if (nextIndex > -1){
+						word[2] = true;
+					} else {
+						word[2] = false;
+					}
+
 				} else {
 					word[2] = false;
 				}
