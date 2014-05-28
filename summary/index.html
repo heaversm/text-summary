@@ -36,6 +36,10 @@
     color: #428bca;
   }
 
+  .label-speed {
+    margin-right: 15px;
+  }
+
   </style>
 </head>
 <body>
@@ -46,10 +50,8 @@
   <form name='summarize' role="form">
     <textarea class="form-control" name='content' rows='10' cols='100' placeholder="Paste Text"></textarea><br/>
     <label for="range">Summary Length (%)</label><br/>
-    <input id="sliderInput" data-slider-id='slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="10" data-slider-value="50"/><br/><br/>
-    <label for="wpm">Speed (wpm)</label><br/>
-    <input id="wpm" data-slider-id='slider' type="text" data-slider-min="100" data-slider-max="1000" data-slider-step="100" data-slider-value="100"/><br/><br/>
-    <button class="btn btn-default" type='submit' name='doit'>Summarize</button>
+    <input id="sliderInput" data-slider-id='slider' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="10" data-slider-value="0"/><br/>
+    <!--<button class="btn btn-default" type='submit' name='doit'>Summarize</button>-->
 
   </form>
   </div>
@@ -64,6 +66,8 @@
     <div class="container">
       <button id="start" class="btn btn-success" type='button' name='start'>Start</button>
       <button id="stop" class="btn btn-danger" type='button' name='stop'>Stop</button>
+      <label for="wpm" class="label-speed">Speed (wpm)</label>
+      <input id="wpm" data-slider-id='slider' type="text" data-slider-min="100" data-slider-max="1000" data-slider-step="100" data-slider-value="100"/><br/><br/>
     </div>
   </div>
 
@@ -150,7 +154,7 @@
                 $('.summary-content').append(sentence);
               }
             });
-
+            $('#word-container').addClass('active');
             setTimeout(function(){
               $('.remove').remove();
               startSprayReader();
@@ -166,7 +170,7 @@
                 $('.summary-content').append(sentence);
               }
             });
-
+            $('#word-container').addClass('active');
             setTimeout(function(){
               $('.add').removeClass('add');
               startSprayReader();
@@ -181,7 +185,6 @@
           var inputText = $('.summary-content').text();
           sprayReader.setInput(inputText);
           sprayReader.setWpm(speed);
-          $('#word-container').addClass('active');
           sprayReader.start();
         }
 
