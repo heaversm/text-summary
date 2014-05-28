@@ -27,11 +27,14 @@
   </style>
 </head>
 <body>
+  <header class="container">
+    <h1>Summarizer</h1>
+  </header>
   <div class="container" id="form-container">
   <form name='summarize' role="form">
     <textarea class="form-control" name='content' rows='10' cols='100' placeholder="Paste Text"></textarea><br/>
     <label for="range">Summary Length (%)</label><br/>
-    <input id="sliderInput" data-slider-id='slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="10" data-slider-value="50"/><br/>
+    <input id="sliderInput" data-slider-id='slider' type="text" data-slider-min="10" data-slider-max="100" data-slider-step="10" data-slider-value="50"/><br/><br/>
     <label for="wpm">Speed (wpm)</label><br/>
     <input id="wpm" data-slider-id='slider' type="text" data-slider-min="100" data-slider-max="1000" data-slider-step="100" data-slider-value="100"/><br/><br/>
     <button class="btn btn-default" type='submit' name='doit'>Summarize</button>
