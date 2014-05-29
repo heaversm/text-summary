@@ -21,24 +21,44 @@
 			return taggedWords;
 		},
 		getKeywords: function(taggedWords){
-			var nounArray = ['NN','NNS','NNP','NNPS'];
-			var verbArray = ['VB','VBD','VBN','VBP','VBZ','NNP','NNPS'];
+			var subjectArray = ['NN','NNS','NNP','NNPS'];
+			var qualifyingArray = ['VB','VBD','VBN','VBP','VBZ','NNP','NNPS','IN','CC',',','.','TO'];
+			var pickedWords = []; //place keywords here to prevent repetition
 
 			var keywordArray = $.each(taggedWords,function(index,word){
-				var arrayIndex = $.inArray(word[1], nounArray);
+				var arrayIndex = $.inArray(word[1], subjectArray);
 				if (arrayIndex > -1){
+
 					var nextWord = taggedWords[index+1];
-					var nextIndex = $.inArray(nextWord[1], verbArray);
-					if (nextIndex > -1){
-						word[2] = true;
+					if (nextWord){
+						var nextIndex = $.inArray(nextWord[1], qualifyingArray);
+					} else {
+						nextIndex = -1;
+					}
+
+					var prevWord = taggedWords[index-1];
+					if (prevWord){
+						var prevIndex = $.inArray(prevWord[1], qualifyingArray);
+					} else {
+						var prevIndex = -1;
+					}
+
+					if (nextIndex > -1 || prevIndex > -1){
+						var pickedWordIndex = $.inArray(word[0], pickedWords);
+						if (pickedWordIndex == -1){
+							word[2] = true;
+							pickedWords.push(word[0]);
+						} else {
+							word[2] = false;
+						}
 					} else {
 						word[2] = false;
 					}
-
 				} else {
 					word[2] = false;
 				}
 			});
+
 			return keywordArray;
 		},
 		tokenizeSentences: function(sentences){

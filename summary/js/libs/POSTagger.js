@@ -101,6 +101,10 @@ POSTagger.prototype.tag = function(words){
         // rule 8: convert a common noun to a present participle verb (i.e., a gerund)
         if (ret[i].startsWith("NN") && words[i].endsWith("ing"))
             ret[i] = "VBG";
+        if (words[i].indexOf("'") > -1) {
+            ret[i] = "CNT";
+        }
+
     }
 	var result = new Array();
 	for (i in words) {

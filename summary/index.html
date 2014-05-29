@@ -9,6 +9,10 @@
   <link href="css/spray-style.css" rel="stylesheet">
   <link href="css/bootstrap-slider.css" rel="stylesheet">
   <style>
+  h1 {
+    margin-top: 0px;
+  }
+
   .container { margin-top: 20px; padding: 0; }
 
   #spray_container {
@@ -38,6 +42,11 @@
 
   .label-speed {
     margin-right: 15px;
+  }
+
+  .summary-content {
+    height: 400px;
+    overflow: auto;
   }
 
   </style>
@@ -98,10 +107,15 @@
   //POS abbreviations:
   //http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 
+  //POS parser found here:
+  //https://code.google.com/p/jspos/
+
+
+
 
     (function() {
       var sprayReader = null; //reads wpm
-
+      var range, speed; //percentage of text to summarize, wmp to read at
       var prevSummary = null, curSummary = null;
 
       $('#sliderInput').slider().on('slideStop',function(){
@@ -118,8 +132,8 @@
       $('form[name=summarize]').on('submit', function(e) {
         e.preventDefault();
         var content = $(this).find('textarea[name=content]').val();
-        var range = $('#sliderInput').slider('getValue');
-        var speed = $('#wpm').slider('getValue');
+        range = $('#sliderInput').slider('getValue');
+        speed = $('#wpm').slider('getValue');
 
         Summary.getSortedSentences(content, range, function(err, summary) {
 
@@ -179,42 +193,43 @@
 
         });
 
-        startSprayReader = function(){
-          sprayReader = null;
-          sprayReader = new SprayReader('#spray_result');
-          var inputText = $('.summary-content').text();
-          sprayReader.setInput(inputText);
-          sprayReader.setWpm(speed);
-          sprayReader.start();
-        }
-
-        $('#start').click(function(event) {
-            sprayReader.start();
-        });
-
-        $('#stop').click(function(event) {
-          sprayReader.stop();
-        });
-
-        $('#keywords').on('click',function(){
-          var summaryContent = $('.summary-content').text();
-          Summary.getKeywords(summaryContent,function(keywordArray){
-            sprayReader.stop();
-            $('.summary-content').empty();
-            $.each(keywordArray,function(index,word){
-              if (word[2] == true){
-                var $word = $('<span class="keyword">' + word[0] + ' </span>');
-              } else {
-                var $word = word[0] + " ";
-              }
-              $('.summary-content').append($word);
-            });
-            startSprayReader();
-          })
-        });
-
         return false;
       });
+
+      startSprayReader = function(){
+        sprayReader = null;
+        sprayReader = new SprayReader('#spray_result');
+        var inputText = $('.summary-content').text();
+        sprayReader.setInput(inputText);
+        sprayReader.setWpm(speed);
+        sprayReader.start();
+      }
+
+      $('#start').click(function(event) {
+          sprayReader.start();
+      });
+
+      $('#stop').click(function(event) {
+        sprayReader.stop();
+      });
+
+      $('#keywords').on('click',function(){
+        var summaryContent = $('.summary-content').text();
+        Summary.getKeywords(summaryContent,function(keywordArray){
+          sprayReader.stop();
+          $('.summary-content').empty();
+          $.each(keywordArray,function(index,word){
+            if (word[2] == true){
+              var $word = $('<span class="keyword">' + word[0] + ' </span>');
+            } else {
+              var $word = word[0] + " ";
+            }
+            $('.summary-content').append($word);
+          });
+          startSprayReader();
+        })
+      });
+
     }());
   </script>
 </body>
