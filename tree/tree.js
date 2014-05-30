@@ -368,20 +368,10 @@ treeJSON = d3.json("data.json", function(error, treeData) {
             loadAsset(d);
         }
 
-        if (d._children != null){
-            var isCollapsed = true
-        } else {
-            var isCollapsed = false;
-        }
-
         d = toggleChildren(d);
         update(d);
 
-        if (isCollapsed){
-            leftAlignNode(d);
-        } else {
-            centerNode(d);
-        }
+        centerNode(d);
 
     }
 
@@ -596,9 +586,7 @@ treeJSON = d3.json("data.json", function(error, treeData) {
     // Layout the tree initially and center on the root node.
     toggle(root);
     update(root);
-    leftAlignNode(root);
-
-    //root.children.forEach(toggleAll);
+    centerNode(root);
 
 
 });
