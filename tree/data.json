@@ -1,0 +1,101 @@
+{
+    "name": "story",
+    "children": [{
+        "name": "actions",
+        "children": [
+            {
+                "name": "someone will come and kill me",
+                "asset": "lOoOP2l_ahQ",
+                "type" : "video",
+                "start" : 14
+            }, {
+                "name": "dark current of fear that flowed beneath the placid surface",
+                "asset": "Il7TSA2G7Uk",
+                "type" : "video",
+                "start" : 21
+            }, {
+                "name": "manor house was falling down",
+                "asset": "5UWxs1pk6js",
+                "type" : "video",
+                "start" : 0
+            }, {
+                "name": "drink the light of day",
+                "asset": "OY9NfaBOY6I",
+                "type": "video",
+                "start": 80
+            }, {
+                "name": "hang a poster",
+                "asset": "DJfeAvP8xTo",
+                "type" : "video",
+                "start" : 15
+            }
+        ]
+    }, {
+        "name": "visuals",
+        "children": [
+            {
+                "name": "bright beery face",
+                "asset": "beery.jpg",
+                "type" : "image"
+            }, {
+                "name": "disappeared",
+                "asset": "disappeared.jpg",
+                "type" : "image"
+            }, {
+                "name": "hot summer",
+                "asset": "hot-summer.jpg",
+                "type" : "image"
+            }, {
+                "name": "inverse Shangri-La",
+                "asset": "shangrila.jpg",
+                "type" : "image"
+            }, {
+                "name": "yellow Cotswold stone",
+                "asset": "cotswold.jpg",
+                "type" : "image"
+            }
+        ]
+    }, {
+        "name": "maps",
+        "children": [
+            {
+                "name": "Oxford",
+                "type": "map",
+                "asset": "pb=!1m18!1m12!1m3!1d39520.79384256274!2d-1.24758785!3d51.7504163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48713380adc41faf%3A0xc820dba8cb547402!2sOxford!5e0!3m2!1sen!2sus!4v1401393038052"
+            }, {
+                "name": "Stratford",
+                "type": "map",
+                "asset": "pb=!1m18!1m12!1m3!1d4962.72304735981!2d-0.0018699999999999995!3d51.5432695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a78bf2ab9b87%3A0xbd69d3e95620fb8a!2sStratford!5e0!3m2!1sen!2sus!4v1401393074003"
+            }, {
+                "name": "Chipping Norton",
+                "type": "map",
+                "asset": "pb=!1m18!1m12!1m3!1d9838.716431009809!2d-1.5519486!3d51.93980645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48712acd7914f0d3%3A0x799200c2bf9f722c!2sChipping+Norton!5e0!3m2!1sen!2sus!4v1401392726663"
+            }, {
+                "name": "Evesham",
+                "type": "map",
+                "asset": "pb=!1m18!1m12!1m3!1d19610.816895295404!2d-1.9473388999999999!3d52.09152304999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870d940face178b%3A0x3a7c60c10f2ea2e9!2sEvesham!5e0!3m2!1sen!2sus!4v1401393129511"
+            }, {
+                "name": "Middle Ashton",
+                "type": "map",
+                "asset": "pb=!1m18!1m12!1m3!1d9838.590895355088!2d-1.314491!3d51.94037885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876d984254dcefb%3A0x2e1faa917dd01b3a!2sMiddle+Aston!5e0!3m2!1sen!2sus!4v1401393158745"
+            }
+        ]
+    }, {
+        "name": "sound",
+        "children": [
+            {
+                "name": "creaks and groans",
+                "type": "sound",
+                "asset": "creak.wav"
+            }, {
+                "name": "whispers and sighs",
+                "type": "sound",
+                "asset": "wind.wav"
+            }, {
+                "name": "night breezes",
+                "type": "sound",
+                "asset": "breeze.wav"
+            }
+        ]
+    }]
+}

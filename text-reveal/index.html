@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Revealing Text</title>
+  <link rel="stylesheet" href="css/libs/animate.min.css">
+  <style>
+
+    .init {
+      opacity: 1;
+      -webkit-transition: .5s all linear;
+      transition: .5s all linear;
+      color: #000;
+      background-color: transparent;
+    }
+
+    .init.bg.grey {
+      background-color: #ddd;
+    }
+
+    .init.inactive {
+      opacity: 0;
+    }
+
+    .init.blue {
+      background-color: #ccf0fd;
+    }
+
+    .init.red {
+      color: #f80c0c;
+    }
+
+    .init.spaced.one {
+      margin-left: 200px;
+    }
+
+    .init.spaced.two {
+      margin-left: 100px;
+    }
+
+    .init.spaced.three {
+      margin-left: 300px;
+    }
+
+    .init.notransition {
+      -webkit-transition: none;
+      transition: none;
+    }
+
+    .init.fasttransition {
+      -webkit-transition-duration: .2s;
+      transition-duration: .2s;
+    }
+
+    .init.hot {
+      background-color: #ea654f;
+      color: #f0de42;
+    }
+
+    .init.repeat3 {
+      -webkit-animation-iteration-count: 3;
+      animation-iteration-count: 3;
+    }
+
+    .init.underline {
+
+    }
+
+    #phrases {
+      display: none;
+    }
+
+    .paragraph {
+      width: 600px;
+      font-family: georgia,serif;
+      font-size: 24px;
+      margin: 0 auto;
+      line-height: 35px;
+    }
+
+    a.underline {
+      text-decoration: none;
+      display: inline-block;
+      border-bottom: 1px solid black;
+      margin-right: 140px;
+      width: 0px;
+      -webkit-transition: 0.5s ease;
+              transition: 0.5s ease;
+      white-space: nowrap;
+    }
+
+    a.underline.active {
+      -webkit-transition: 0.5s ease;
+              transition: 0.5s ease;
+      border-bottom: 1px solid black;
+      width: 140px;
+      margin-right: 0px;
+    }
+
+    #quotation {
+      margin: 50px auto;
+      border-bottom: 5px solid black;
+      border-top: 5px solid black;
+      min-height: 200px;
+      -webkit-transition: .5s all linear;
+      transition: .5s all linear;
+      width: 0px;
+      text-align: center;
+      font-size: 150px;
+      line-height: 200px;
+    }
+
+    #quotation.active {
+      width: 800px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<p class="paragraph">When <span class="init" data-id="0">I was a child</span> <span class="init" data-id="1">my mother used to <span class="init" data-id="2">rebuke me.</span></span></p>
+
+<div id="quotation">
+</div>
+
+<div id="phrases">
+  <span class='init inactive' data-id='3'> and was being fractious </span>
+  <span class='init inactive' data-id='4'> and contrary </span>
+  <span class='init inactive' data-id='5'> and generally behaving badly, </span>
+  <span class='init inactive' data-id='6'> It's curious</span>
+  <span class='init inactive' data-id='7'> but you don't think seriously about these remarks when you're young.</span>
+  <span class='init inactive' data-id='8'> As I look back</span>
+  <span class="init inactive" data-id='11'>on that <span class="init" data-id="10">summer</span><span class='init' data-id='14'> of 1976</span></span>
+  <span class='init inactive' data-id='12'>interminable </span>
+  <span class='init inactive' data-id='13'>hot </span>
+  <span class="init inactive" data-id='15'>, that summer when England <span class="init" data-id='16'>reeled,</span></span>
+  <span class="init inactive repeat3" data-id="17">gasping for breath, </span>
+  <span class='init inactive' data-id='9'><a class="underline">I understand</a>.</span>
+  <span class="init inactive" data-id="18"> She was always frightened that someone was going to come and <span class="init" data-id="19">kill</span> her.</span>
+  <span class="init inactive" data-id="20"> And she had good reason.</span>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="js/libs/jquery.lettering.js"></script>
+<script src="js/libs/jquery.textillate.js"></script>
+
+<script>
+
+setTimeout(function(){
+  $('.init[data-id="0"]').addClass('bg grey');
+  setTimeout(function(){
+    $('.init[data-id="0"]').removeClass('bg grey');
+    $('.init[data-id="1"]').addClass('spaced one');
+    setTimeout(function(){
+      $('.init[data-id="1"]').addClass('notransition').removeClass('spaced one');
+      $('.init[data-id="3"]').detach().insertAfter($('.init[data-id="0"]')).removeClass('inactive');
+      setTimeout(function(){
+        $('.init[data-id="1"]').removeClass('notransition').addClass('spaced two');
+        setTimeout(function(){
+          $('.init[data-id="1"]').addClass('notransition').removeClass('spaced two');
+          $('.init[data-id="4"]').detach().insertAfter($('.init[data-id="3"]')).removeClass('inactive');
+          setTimeout(function(){
+            $('.init[data-id="1"]').removeClass('notransition').addClass('spaced three');
+            setTimeout(function(){
+              $('.init[data-id="1"]').addClass('notransition').removeClass('spaced two');
+              $('.init[data-id="5"]').detach().insertAfter($('.init[data-id="4"]')).removeClass('inactive');
+              setTimeout(doCuriousAnimation,2000);
+            },500)
+          },1000)
+        },500)
+      },1000)
+    },500)
+
+  },1000)
+},1000)
+
+doCuriousAnimation = function(){
+  $('.init[data-id="6"]').detach().insertAfter('.init[data-id="2"]').removeClass('inactive').textillate({ in: { effect: 'fadeIn', shuffle: 'true', delay: 30 } });
+  setTimeout(function(){
+    $('.init[data-id="7"]').detach().appendTo($('.paragraph')).fadeTo(1000,1);
+    setTimeout(doLookingBackAnimation,2000);
+  },1500)
+}
+
+doLookingBackAnimation = function(){
+  $('.init[data-id="8"]').detach().appendTo($('.paragraph')).removeClass('inactive').textillate({ in: { effect: 'fadeIn', reverse: 'true', delay: 30 } });
+  setTimeout(function(){
+    $('.init[data-id="11"]').detach().appendTo($('.paragraph')).fadeTo(1000,1);
+    setTimeout(doSummerAnimation,2500);
+  },1000);
+}
+
+doSummerAnimation = function(){
+  $('.init[data-id="12"]').detach().insertBefore($('.init[data-id="10"]')).fadeTo(500,1,function(){
+    $('.init[data-id="12"]').removeClass('inactive').addClass('hot');
+    setTimeout(function(){
+      $('.init[data-id="12"]').removeClass('hot');
+      setTimeout(function(){
+        $('.init[data-id="13"]').detach().insertAfter($('.init[data-id="12"]')).fadeTo(500,1,function(){
+          $('.init[data-id="13"]').removeClass('inactive').addClass('hot');
+          setTimeout(function(){
+            $('.init[data-id="13"]').removeClass('hot');
+            setTimeout(function(){
+
+                $('.init[data-id="14"]').addClass('bg grey');
+                setTimeout(function(){
+                  $('.init[data-id="14"]').removeClass('bg grey');
+                  setTimeout(doReelingAnimation,1000);
+                },1000);
+
+            },1000);
+          },500);
+        });
+      },500);
+    },500)
+  });
+}
+
+doReelingAnimation = function(){
+  $('.init[data-id="15"]').detach().insertAfter($('.init[data-id="14"]')).fadeTo(1000,1,function(){
+    setTimeout(function(){
+      $('.init[data-id="16"]').textillate({ in: { effect: 'swing', sync: 'true', delay: 30 } });
+      setTimeout(function(){
+        $('.init[data-id="17"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
+          $('.init[data-id="17"]').addClass('pulse animated');
+          setTimeout(doUnderstandAnimation,4000);
+        });
+      },1000);
+    },1000);
+  });
+}
+
+doUnderstandAnimation = function(){
+  $('.init[data-id="9"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
+    $('.init[data-id="9"]').find('.underline').addClass('active');
+    setTimeout(showQuotation,2000);
+  });
+}
+
+showQuotation = function(){
+  $('#quotation').addClass('active');
+
+  setTimeout(function(){
+    var words = ['She','was','always','frightened','someone','was','going','to','come','and','kill','her'];
+    var $quotation = $('#quotation');
+    var i=0;
+    addWord();
+
+
+    function addWord(){
+      var word = words[i];
+      $quotation.html(word);
+      if (i < words.length-1){
+        i++;
+        setTimeout(addWord,200);
+      } else {
+        setTimeout(endQuotation,500);
+      }
+
+    }
+
+  },1000);
+
+}
+
+endQuotation = function(){
+  $('#quotation').empty().removeClass('active');
+  $('.init[data-id="18"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
+    $('.init[data-id="19"]').addClass('red');
+    setTimeout(function(){
+      $('.init[data-id="19"]').removeClass('red');
+      $('.init[data-id="20"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
+        setTimeout(function(){
+          $('span, a').contents().unwrap();
+          $('ul, span').remove();
+
+          var $final = $("When I was a child and was being fractious  and contrary  and generally behaving badly,  my mother used to rebuke me. It's curious  but you don't think seriously about these remarks when you're young. As I look back on that interminable hot summer of 1976, that summer when England reeled, gasping for breath, I understand. She was always frightened that someone was going to come and kill her. And she had good reason.");
+
+          $('.paragraph').empty().append($final);
+
+          /*$('.paragraph').textillate({ inEffects: [], outEffects: ['hinge'], delayScale: Math.random(), in: { effect: 'none'}, out: { effect: 'hinge', shuffle: 'true', delay: 30 } });*/
+        },3000)
+      });
+    },3000);
+  });
+}
+
+
+</script>
+
+</body>
+</html>
