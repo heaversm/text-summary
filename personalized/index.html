@@ -3,7 +3,35 @@
 <head>
   <meta charset="utf-8">
   <title>Personalized</title>
+  <link rel="stylesheet" href="css/lib/jqtree.css">
   <style>
+  body {
+    font-family: garamond, serif;
+    font-size: 18px;
+  }
+ .personalized {
+    padding: 0px 5px;
+  }
+
+  .text-orig .personalized {
+    background: rgba(237,103,70,.3);
+  }
+
+  .text-personalized .personalized {
+    background: rgba(83,174,166,.3);
+  }
+
+  .text-container {
+    width: 45%;
+  }
+
+  .text-orig {
+    float: left;
+  }
+
+  .text-personalized {
+    float: right;
+  }
 
   </style>
 </head>
@@ -15,9 +43,27 @@
   <fb:login-button scope="public_profile,email,user_about_me,user_birthday,user_education_history,user_hometown,user_location,user_relationships,user_relationship_details,user_photos,user_friends,read_friendlists" onlogin="checkLoginState();">
   </fb:login-button>
 
+  <div id="text-containers">
+    <div class="text-orig text-container">
+
+      <p>As I look back on the events of that interminable hot summer of <span class="personalized" data-id="birth-year">1976</span>, that summer when <span class="personalized" data-id="country">England</span> reeled, gasping for breath, pole-axed by the unending heat — now I know what my <span class="personalized" data-id="mother">mother</span> was talking about: I understand that bitter dark current of fear that flowed beneath the placid surface of <span class="personalized" data-id="gender-possessive">her</span> ordinary life — how it had never left <span class="personalized" data-id="gender-possessive">her</span> even after years of peaceful, unexceptionable living. I now realise <span class="personalized" data-id="gender">she</span> was always frightened that someone was going to come and kill <span class="personalized" data-id="gender-possessive">her</span>. And <span class="personalized" data-id="gender-possessive">she</span> had good reason. </p>
+
+      <p>It all started, I remember, in early June. I can't recall the exact day - a Saturday, most likely, because <span class="personalized" data-id="child-name">Jochen</span> wasn't at <span class="personalized" data-id="gender-possessive-child">his</span> nursery school - and we both drove over to <span class="personalized" data-id="nearby-1">Middle Ashton</span> as usual. We took the main road out of <span class="personalized" data-id="hometown">Oxford</span> to <span class="personalized" data-id="nearby-2">Stratford</span> and then turned off it at <span class="personalized" data-id="nearby-3">Chipping Norton</span>, heading for <span class="personalized" data-id="nearby-4">Evesham</span>, and then we turned off again and again, as if we were following a descending scale of road types; <span class="personalized" data-id="road-names">trunk road, road, B-road, minorroad</span>, until we found ourselves on the metalled cart track that led through the dense and venerable beech wood down to the narrow valley that contained the tiny village of <span class="personalized" data-id="nearby-1">Middle Ashton</span>. It was a journey I made at least twice a week and each time I did so I felt I was being led into the lost heart of <span class="personalized" data-id="country">England</span> — a green, forgotten, inverse Shangri-La where everything became older, mouldier and more decrepit.</p>
+
+    </div>
+    <div class="text-personalized text-container">
+      <p>As I look back on the events of that interminable hot summer of <span class="personalized" data-id="birth-year">1976</span>, that summer when <span class="personalized" data-id="country">England</span> reeled, gasping for breath, pole-axed by the unending heat — now I know what my <span class="personalized" data-id="mother">mother</span> was talking about: I understand that bitter dark current of fear that flowed beneath the placid surface of <span class="personalized" data-id="gender-possessive">her</span> ordinary life — how it had never left <span class="personalized" data-id="gender-possessive">her</span> even after years of peaceful, unexceptionable living. I now realise <span class="personalized" data-id="gender">she</span> was always frightened that someone was going to come and kill <span class="personalized" data-id="gender-possessive">her</span>. And <span class="personalized" data-id="gender-possessive">she</span> had good reason. </p>
+
+      <p>It all started, I remember, in early June. I can't recall the exact day - a Saturday, most likely, because <span class="personalized" data-id="child-name">Jochen</span> wasn't at <span class="personalized" data-id="gender-possessive-child">his</span> nursery school - and we both drove over to <span class="personalized" data-id="nearby-1">Middle Ashton</span> as usual. We took the main road out of <span class="personalized" data-id="hometown">Oxford</span> to <span class="personalized" data-id="nearby-2">Stratford</span> and then turned off it at <span class="personalized" data-id="nearby-3">Chipping Norton</span>, heading for <span class="personalized" data-id="nearby-4">Evesham</span>, and then we turned off again and again, as if we were following a descending scale of road types; <span class="personalized" data-id="road-names">trunk road, road, B-road, minorroad</span>, until we found ourselves on the metalled cart track that led through the dense and venerable beech wood down to the narrow valley that contained the tiny village of <span class="personalized" data-id="nearby-1">Middle Ashton</span>. It was a journey I made at least twice a week and each time I did so I felt I was being led into the lost heart of <span class="personalized" data-id="country">England</span> — a green, forgotten, inverse Shangri-La where everything became older, mouldier and more decrepit.</p>
+    </div>
+  </div>
+
+  <div id="tree"></div>
+
 </div>
 
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="js/lib/tree.jquery.js"></script>
 <script>
   //https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.0
 
@@ -113,6 +159,7 @@
       var family = response.data;
       var supportingCharacter = null;
       var mother = null;
+      var father = null;
 
       for (var i=0;i<family.length;i++){
         var member = family[i];
@@ -131,6 +178,11 @@
           mother = characterName[0];
           user.mother = mother;
           break;
+        } else if (member.relationship == 'father'){
+          var characterName = member.name.split(" ");
+          father = characterName[0];
+          user.father = father;
+          break;
         }
       }
 
@@ -140,7 +192,9 @@
   }
 
   function getLocation(){
-
+    $('#tree1').tree({
+        data: user
+    });
   }
 
 </script>

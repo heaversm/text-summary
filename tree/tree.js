@@ -584,7 +584,7 @@ treeJSON = d3.json("data.json", function(error, treeData) {
     root.y0 = 0;
 
     // Layout the tree initially and center on the root node.
-    toggle(root);
+    tree.nodes(root).forEach(function(n) { toggle(n); });
     update(root);
     centerNode(root);
 
