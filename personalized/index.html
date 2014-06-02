@@ -1,202 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Personalized</title>
-  <link rel="stylesheet" href="css/lib/jqtree.css">
-  <style>
-  body {
-    font-family: garamond, serif;
-    font-size: 18px;
-  }
- .personalized {
-    padding: 0px 5px;
-  }
-
-  .text-orig .personalized {
-    background: rgba(237,103,70,.3);
-  }
-
-  .text-personalized .personalized {
-    background: rgba(83,174,166,.3);
-  }
-
-  .text-container {
-    width: 45%;
-  }
-
-  .text-orig {
-    float: left;
-  }
-
-  .text-personalized {
-    float: right;
-  }
-
-  </style>
+    <meta charset="utf-8">
+    <title>Personalized</title>
+    <link rel="stylesheet" href="css/lib/jqtree.css">
+    <style>
+    body {
+        font-family: garamond, serif;
+        font-size: 18px;
+    }
+    .personalized {
+        padding: 0px 5px;
+    }
+    .text-orig .personalized {
+        background: rgba(237, 103, 70, .3);
+    }
+    .text-personalized .personalized {
+        background: rgba(83, 174, 166, .3);
+    }
+    .text-container {
+        width: 45%;
+    }
+    .text-orig {
+        float: left;
+    }
+    .text-personalized {
+        float: right;
+    }
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDGpG9uktDahy4xCRZ7XoBtFUP19NlW4tY&sensor=FALSE"></script>
+    </script>
 </head>
 
 <body>
 
-<div id="container">
-  <!--https://developers.facebook.com/docs/facebook-login/permissions/v2.0-->
-  <fb:login-button scope="public_profile,email,user_about_me,user_birthday,user_education_history,user_hometown,user_location,user_relationships,user_relationship_details,user_photos,user_friends,read_friendlists" onlogin="checkLoginState();">
-  </fb:login-button>
+    <div id="container">
+        <!--https://developers.facebook.com/docs/facebook-login/permissions/v2.0-->
+        <fb:login-button scope="public_profile,email,user_about_me,user_birthday,user_education_history,user_hometown,user_location,user_relationships,user_relationship_details,user_photos,user_friends,read_friendlists" onlogin="checkLoginState();">
+        </fb:login-button>
 
-  <div id="text-containers">
-    <div class="text-orig text-container">
+        <div id="text-containers">
+            <div class="text-orig text-container">
 
-      <p>As I look back on the events of that interminable hot summer of <span class="personalized" data-id="birth-year">1976</span>, that summer when <span class="personalized" data-id="country">England</span> reeled, gasping for breath, pole-axed by the unending heat — now I know what my <span class="personalized" data-id="mother">mother</span> was talking about: I understand that bitter dark current of fear that flowed beneath the placid surface of <span class="personalized" data-id="gender-possessive">her</span> ordinary life — how it had never left <span class="personalized" data-id="gender-possessive">her</span> even after years of peaceful, unexceptionable living. I now realise <span class="personalized" data-id="gender">she</span> was always frightened that someone was going to come and kill <span class="personalized" data-id="gender-possessive">her</span>. And <span class="personalized" data-id="gender-possessive">she</span> had good reason. </p>
+                <p>As I look back on the events of that interminable hot summer of
+                    <span class="personalized" data-id="birth-year">1976</span>, that summer when
+                    <span class="personalized" data-id="country">England</span>reeled, gasping for breath, pole-axed by the unending heat — now I know what my
+                    <span class="personalized" data-id="parent">mother</span>was talking about: I understand that bitter dark current of fear that flowed beneath the placid surface of
+                    <span class="personalized" data-id="gender-possessive">her</span>ordinary life — how it had never left
+                    <span class="personalized" data-id="gender-possessive-do">her</span>even after years of peaceful, unexceptionable living. I now realise
+                    <span class="personalized" data-id="gender">she</span>was always frightened that someone was going to come and kill
+                    <span class="personalized" data-id="gender-possessive-do">her</span>. And
+                    <span class="personalized" data-id="gender">she</span>had good reason.</p>
 
-      <p>It all started, I remember, in early June. I can't recall the exact day - a Saturday, most likely, because <span class="personalized" data-id="child-name">Jochen</span> wasn't at <span class="personalized" data-id="gender-possessive-child">his</span> nursery school - and we both drove over to <span class="personalized" data-id="nearby-1">Middle Ashton</span> as usual. We took the main road out of <span class="personalized" data-id="hometown">Oxford</span> to <span class="personalized" data-id="nearby-2">Stratford</span> and then turned off it at <span class="personalized" data-id="nearby-3">Chipping Norton</span>, heading for <span class="personalized" data-id="nearby-4">Evesham</span>, and then we turned off again and again, as if we were following a descending scale of road types; <span class="personalized" data-id="road-names">trunk road, road, B-road, minorroad</span>, until we found ourselves on the metalled cart track that led through the dense and venerable beech wood down to the narrow valley that contained the tiny village of <span class="personalized" data-id="nearby-1">Middle Ashton</span>. It was a journey I made at least twice a week and each time I did so I felt I was being led into the lost heart of <span class="personalized" data-id="country">England</span> — a green, forgotten, inverse Shangri-La where everything became older, mouldier and more decrepit.</p>
+                <p>It all started, I remember, in early June. I can't recall the exact day - a Saturday, most likely, because
+                    <span class="personalized" data-id="child-name">Jochen</span>wasn't at nursery school - and we both drove over to
+                    <span class="personalized" data-id="nearby-1">Middle Ashton</span>as usual. We took the main road out of
+                    <span class="personalized" data-id="hometown">Oxford</span>to
+                    <span class="personalized" data-id="nearby-2">Stratford</span>and then turned off it at
+                    <span class="personalized" data-id="nearby-3">Chipping Norton</span>, heading for
+                    <span class="personalized" data-id="nearby-4">Evesham</span>, and then we turned off again and again, as if we were following a descending scale of road types;
+                    <span class="personalized" data-id="road-names">trunk road, road, B-road, minorroad</span>, until we found ourselves on the metalled cart track that led through the dense and venerable beech wood down to the narrow valley that contained the tiny village of
+                    <span class="personalized" data-id="nearby-1">Middle Ashton</span>. It was a journey I made at least twice a week and each time I did so I felt I was being led into the lost heart of
+                    <span class="personalized" data-id="country">England</span>— a green, forgotten, inverse Shangri-La where everything became older, mouldier and more decrepit.</p>
+
+            </div>
+            <div class="text-personalized text-container">
+                <p>As I look back on the events of that interminable hot summer of
+                    <span class="personalized" data-id="birth-year">1976</span>, that summer when
+                    <span class="personalized" data-id="country">England</span>reeled, gasping for breath, pole-axed by the unending heat — now I know what my
+                    <span class="personalized" data-id="parent">mother</span>was talking about: I understand that bitter dark current of fear that flowed beneath the placid surface of
+                    <span class="personalized" data-id="gender-possessive">her</span>ordinary life — how it had never left
+                    <span class="personalized" data-id="gender-possessive-do">her</span>even after years of peaceful, unexceptionable living. I now realise
+                    <span class="personalized" data-id="gender">she</span>was always frightened that someone was going to come and kill
+                    <span class="personalized" data-id="gender-possessive-do">her</span>. And
+                    <span class="personalized" data-id="gender">she</span>had good reason.</p>
+
+                <p>It all started, I remember, in early June. I can't recall the exact day - a Saturday, most likely, because
+                    <span class="personalized" data-id="child-name">Jochen</span>wasn't at nursery school - and we both drove over to
+                    <span class="personalized" data-id="nearby-1">Middle Ashton</span>as usual. We took the main road out of
+                    <span class="personalized" data-id="hometown">Oxford</span>to
+                    <span class="personalized" data-id="nearby-2">Stratford</span>and then turned off it at
+                    <span class="personalized" data-id="nearby-3">Chipping Norton</span>, heading for
+                    <span class="personalized" data-id="nearby-4">Evesham</span>, and then we turned off again and again, as if we were following a descending scale of road types;
+                    <span class="personalized" data-id="road-names">trunk road, road, B-road, minorroad</span>, until we found ourselves on the metalled cart track that led through the dense and venerable beech wood down to the narrow valley that contained the tiny village of
+                    <span class="personalized" data-id="nearby-1">Middle Ashton</span>. It was a journey I made at least twice a week and each time I did so I felt I was being led into the lost heart of
+                    <span class="personalized" data-id="country">England</span>— a green, forgotten, inverse Shangri-La where everything became older, mouldier and more decrepit.</p>
+            </div>
+        </div>
+
+        <div id="tree"></div>
+        <div id="map-canvas"></div>
 
     </div>
-    <div class="text-personalized text-container">
-      <p>As I look back on the events of that interminable hot summer of <span class="personalized" data-id="birth-year">1976</span>, that summer when <span class="personalized" data-id="country">England</span> reeled, gasping for breath, pole-axed by the unending heat — now I know what my <span class="personalized" data-id="mother">mother</span> was talking about: I understand that bitter dark current of fear that flowed beneath the placid surface of <span class="personalized" data-id="gender-possessive">her</span> ordinary life — how it had never left <span class="personalized" data-id="gender-possessive">her</span> even after years of peaceful, unexceptionable living. I now realise <span class="personalized" data-id="gender">she</span> was always frightened that someone was going to come and kill <span class="personalized" data-id="gender-possessive">her</span>. And <span class="personalized" data-id="gender-possessive">she</span> had good reason. </p>
 
-      <p>It all started, I remember, in early June. I can't recall the exact day - a Saturday, most likely, because <span class="personalized" data-id="child-name">Jochen</span> wasn't at <span class="personalized" data-id="gender-possessive-child">his</span> nursery school - and we both drove over to <span class="personalized" data-id="nearby-1">Middle Ashton</span> as usual. We took the main road out of <span class="personalized" data-id="hometown">Oxford</span> to <span class="personalized" data-id="nearby-2">Stratford</span> and then turned off it at <span class="personalized" data-id="nearby-3">Chipping Norton</span>, heading for <span class="personalized" data-id="nearby-4">Evesham</span>, and then we turned off again and again, as if we were following a descending scale of road types; <span class="personalized" data-id="road-names">trunk road, road, B-road, minorroad</span>, until we found ourselves on the metalled cart track that led through the dense and venerable beech wood down to the narrow valley that contained the tiny village of <span class="personalized" data-id="nearby-1">Middle Ashton</span>. It was a journey I made at least twice a week and each time I did so I felt I was being led into the lost heart of <span class="personalized" data-id="country">England</span> — a green, forgotten, inverse Shangri-La where everything became older, mouldier and more decrepit.</p>
-    </div>
-  </div>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="js/lib/tree.jquery.js"></script>
 
-  <div id="tree"></div>
+    <script>
+    //https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.0
 
-</div>
+    var user = {};
+    var geocoder, map, service;
+    var directionsDisplay, directionsService;
 
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="js/lib/tree.jquery.js"></script>
-<script>
-  //https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.0
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
 
-  var user = {}
-
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      getUserData();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            getUserData();
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into Facebook.';
+        }
     }
-  }
 
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1421140894831399',
-      xfbml      : true,
-      version    : 'v2.0'
-    });
-  };
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '1421140894831399',
+            xfbml: true,
+            version: 'v2.0'
+        });
+    };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-  $('.login').on('click',function(){
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        console.log('Logged in.');
-        loggedIn = true;
-        onLoggedIn();
-      }
-      else {
-        FB.login();
-      }
-    });
-  });
-
-  function getUserData() {
-    FB.api('/me', function(response) {
-      console.log(response);
-      user.first_name = response.first_name;
-      user.last_name = response.last_name;
-      user.gender = response.gender;
-      user.id = response.id;
-      user.birthday = response.birthday,
-      user.birthyear = getBirthYear(user.birthday);
-      user.school = response.education[0].school.name;
-      user.hometown = response.hometown.name;
-
-      getUserPicture();
-
-    });
-
-  }
-
-  function getBirthYear(birthday){
-    var dateComponents = birthday.split("/");
-    console.log(dateComponents[2]);
-    return dateComponents[2];
-  }
-
-  function getUserPicture(){
-    FB.api('/me/picture', function(response) {
-      user.picture = response.data.url;
-      getUserFriends();
-    });
-  }
-
-  function getUserFriends(){
-    FB.api('/me/family', function(response) {
-      var family = response.data;
-      var supportingCharacter = null;
-      var mother = null;
-      var father = null;
-
-      for (var i=0;i<family.length;i++){
-        var member = family[i];
-        if (member.relationship == 'cousin' || member.relationship == 'brother' || member.relationship == 'sister' && supportingCharacter == null){
-          var characterName = member.name.split(" ");
-          supportingCharacter = characterName[0];
-          user.supportingCharacter = supportingCharacter;
-          break;
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
         }
-      }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
-      for (var i=0;i<family.length;i++){
-        var member = family[i];
-        if (member.relationship == 'mother'){
-          var characterName = member.name.split(" ");
-          mother = characterName[0];
-          user.mother = mother;
-          break;
-        } else if (member.relationship == 'father'){
-          var characterName = member.name.split(" ");
-          father = characterName[0];
-          user.father = father;
-          break;
+    $('.login').on('click', function() {
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                console.log('Logged in.');
+                loggedIn = true;
+                onLoggedIn();
+            } else {
+                FB.login();
+            }
+        });
+    });
+
+    function getUserData() {
+        FB.api('/me', function(response) {
+            console.log(response);
+            user.first_name = response.first_name;
+            user.last_name = response.last_name;
+            user.gender = response.gender;
+            user.id = response.id;
+            user.birthday = response.birthday,
+            user.birthyear = getBirthYear(user.birthday);
+            user.school = response.education[0].school.name;
+            if (response.hometown) {
+                user.home_location = response.hometown.name;
+                var hometownParts = user.home_location.split(",");
+                user.hometown = hometownParts[0];
+            }
+
+
+            getUserPicture();
+
+        });
+
+    }
+
+    function getBirthYear(birthday) {
+        var dateComponents = birthday.split("/");
+        console.log(dateComponents[2]);
+        return dateComponents[2];
+    }
+
+    function getUserPicture() {
+        FB.api('/me/picture', function(response) {
+            user.picture = response.data.url;
+            getUserFriends();
+        });
+    }
+
+    function getUserFriends() {
+        FB.api('/me/family', function(response) {
+            var family = response.data;
+            var supportingCharacter = null;
+            var mother = null;
+            var father = null;
+
+            for (var i = 0; i < family.length; i++) {
+                var member = family[i];
+                if (member.relationship == 'cousin' || member.relationship == 'brother' || member.relationship == 'sister' && supportingCharacter == null) {
+                    var characterName = member.name.split(" ");
+                    supportingCharacter = characterName[0];
+                    user.supportingCharacter = supportingCharacter;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < family.length; i++) {
+                var member = family[i];
+                if (member.relationship == 'mother') {
+                    var characterName = member.name.split(" ");
+                    mother = characterName[0];
+                    user.mother = mother;
+                    break;
+                } else if (member.relationship == 'father') {
+                    var characterName = member.name.split(" ");
+                    father = characterName[0];
+                    user.father = father;
+                    break;
+                }
+            }
+
+            personalizeCharacters();
+            getLocation();
+
+        });
+    }
+
+    function personalizeCharacters() {
+        if (user.birthyear) {
+            var storyYear = parseInt(user.birthyear) + 10;
+            $('.text-personalized [data-id="birth-year"]').text(storyYear);
         }
-      }
 
-      getLocation();
+        if (user.father || !user.mother) {
+            $('.text-personalized [data-id="parent"]').text('father');
+            $('.text-personalized [data-id="gender').text('he');
+            $('.text-personalized [data-id="gender-possessive').text('his');
+            $('.text-personalized [data-id="gender-possessive-do').text('him');
+        } else {
+            $('.text-personalized [data-id="gender').text('she');
+            $('.text-personalized [data-id="parent"]').text('mother');
+            $('.text-personalized [data-id="gender-possessive').text('her');
+            $('.text-personalized [data-id="gender-possessive-do').text('her');
+        }
 
-    });
-  }
+        if (user.supportingCharacter) {
+            $('.text-personalized [data-id="child-name').text(user.supportingCharacter);
+        }
 
-  function getLocation(){
-    $('#tree1').tree({
-        data: user
-    });
-  }
+        if (user.hometown) {
+            $('.text-personalized [data-id="hometown"]').text(user.hometown);
+        }
 
-</script>
+    }
+
+    function getLocation() {
+        //google.maps.event.addDomListener(window, 'load', initializeMaps);
+        initializeMaps();
+    }
+
+    function initializeMaps() {
+        geocoder = new google.maps.Geocoder();
+        var address = user.home_location;
+        geocoder.geocode({
+            'address': address
+        }, function(results, status) { //https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0]);
+                var location = results[0].geometry.location;
+                user.location = location;
+                var lat = location.k;
+                var lng = location.A;
+                user.state = results[0].address_components[2].long_name;
+                var country = results[0].address_components[3].long_name;
+                if (country == "United States") {
+                    user.country = results[0].address_components[2].long_name;
+                } else {
+                    user.country = country;
+                }
+
+                $('.text-personalized [data-id="country"]').text(user.country);
+
+                map = new google.maps.Map(document.getElementById('map-canvas'), {
+                    center: location,
+                    zoom: 15
+                });
+
+                var request = {
+                    location: location,
+                    radius: 50000,
+                    types: ['airport']
+                };
+
+                service = new google.maps.places.PlacesService(map);
+                service.nearbySearch(request, onNearbyResults);
+
+            } else {
+                console.log('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    function onNearbyResults(results, status) {
+        console.log(results, status);
+        var places = [];
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                var place = results[i];
+                var placeName = place.vicinity;
+                var placeNameParts = placeName.split(" ");
+                var placeLength = placeNameParts.length;
+                if (placeNameParts[placeLength - 1] !== "Airport" && placeNameParts[placeLength - 1] != "") {
+                    var town = placeNameParts[placeLength - 1];
+                } else if (placeNameParts[placeLength - 2] != "") {
+                    var town = placeNameParts[placeLength - 2];
+                }
+
+                var townIndex = $.inArray(town, places);
+                if (townIndex == -1) {
+                    if (town != "" && town != undefined && town.length > 2 && town != user.hometown) {
+                        places.push(town);
+                    }
+                    if (places.length == 4) {
+                        break;
+                    }
+                }
+
+            }
+
+            user.places = places;
+
+            for (var i = 0; i < places.length; i++) {
+                $('.text-personalized [data-id="nearby-' + (i + 1) + '"]').text(places[i]);
+            }
+
+            getDirections();
+
+        }
+    }
+
+    getDirections = function() {
+        directionsService = new google.maps.DirectionsService();
+        var start = user.location;
+
+        var endTown = user.places[3] + ', ' + user.state + ', ' + user.country;
+        geocoder.geocode({
+          'address': endTown
+        }, function(results, status) { //https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple
+                if (status == google.maps.GeocoderStatus.OK) {
+                    console.log(results[0]);
+                    var end = results[0].geometry.location;
+                    getDirectionsList(start,end);
+                }
+        });
+
+    }
+
+    getDirectionsList = function(start,end){
+      directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map);
+        var mode = google.maps.TravelMode.DRIVING;
+
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: mode
+        };
+
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              var steps = response.routes[0].legs[0].steps;
+
+            }
+        });
+    }
+
+
+
+
+    </script>
 </body>
+
 </html>
