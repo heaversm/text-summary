@@ -164,11 +164,22 @@
     }
 
     window.fbAsyncInit = function() {
+        debugger;
+        var host = window.location.hostname;
+
+        if (host == 'localhost'){
+          var app = '1422284418050380';
+        } else {
+          var app = '1421140894831399';
+        }
+
+
         FB.init({
-            appId: '1421140894831399',
+            appId: app,
             xfbml: true,
             version: 'v2.0'
         });
+
     };
 
     (function(d, s, id) {
