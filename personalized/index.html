@@ -164,21 +164,26 @@
     function getUserData() {
         FB.api('/me', function(response) {
             console.log(response);
-            user.first_name = response.first_name;
+
+            /*user.first_name = response.first_name;
             user.last_name = response.last_name;
             user.gender = response.gender;
-            user.id = response.id;
-            user.birthday = response.birthday,
-            user.birthyear = getBirthYear(user.birthday);
-            user.school = response.education[0].school.name;
+            user.id = response.id;*/
+            if (response.birthday){
+              user.birthday = response.birthday;
+              user.birthyear = getBirthYear(user.birthday);
+            }
+
+
+            //user.school = response.education[0].school.name;
             if (response.hometown) {
                 user.home_location = response.hometown.name;
                 var hometownParts = user.home_location.split(",");
                 user.hometown = hometownParts[0];
             }
 
-
-            getUserPicture();
+            //getUserPicture();
+            getUserFriends();
 
         });
 
@@ -204,33 +209,38 @@
             var mother = null;
             var father = null;
 
-            for (var i = 0; i < family.length; i++) {
-                var member = family[i];
-                if (member.relationship == 'cousin' || member.relationship == 'brother' || member.relationship == 'sister' && supportingCharacter == null) {
-                    var characterName = member.name.split(" ");
-                    supportingCharacter = characterName[0];
-                    user.supportingCharacter = supportingCharacter;
-                    break;
-                }
-            }
+            if (family.length > 0){
+              for (var i = 0; i < family.length; i++) {
+                  var member = family[i];
+                  if (member.relationship == 'cousin' || member.relationship == 'brother' || member.relationship == 'sister' && supportingCharacter == null) {
+                      var characterName = member.name.split(" ");
+                      supportingCharacter = characterName[0];
+                      user.supportingCharacter = supportingCharacter;
+                      break;
+                  }
+              }
 
-            for (var i = 0; i < family.length; i++) {
-                var member = family[i];
-                if (member.relationship == 'mother') {
-                    var characterName = member.name.split(" ");
-                    mother = characterName[0];
-                    user.mother = mother;
-                    break;
-                } else if (member.relationship == 'father') {
-                    var characterName = member.name.split(" ");
-                    father = characterName[0];
-                    user.father = father;
-                    break;
-                }
+              for (var i = 0; i < family.length; i++) {
+                  var member = family[i];
+                  if (member.relationship == 'mother') {
+                      var characterName = member.name.split(" ");
+                      mother = characterName[0];
+                      user.mother = mother;
+                      break;
+                  } else if (member.relationship == 'father') {
+                      var characterName = member.name.split(" ");
+                      father = characterName[0];
+                      user.father = father;
+                      break;
+                  }
+              }
             }
 
             personalizeCharacters();
-            getLocation();
+
+            if (user.hometown){
+              getLocation();
+            }
 
         });
     }
@@ -343,7 +353,7 @@
                 $('.text-personalized [data-id="nearby-' + (i + 1) + '"]').text(places[i]);
             }
 
-            getDirections();
+            //getDirections();
 
         }
     }
