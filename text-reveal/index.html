@@ -147,39 +147,47 @@
 
 <script>
 
-setTimeout(function(){
-  $('.init[data-id="0"]').addClass('bg grey');
-  setTimeout(function(){
-    $('.init[data-id="0"]').removeClass('bg grey');
-    $('.init[data-id="1"]').addClass('spaced one');
-    setTimeout(function(){
-      $('.init[data-id="1"]').addClass('notransition').removeClass('spaced one');
-      $('.init[data-id="3"]').detach().insertAfter($('.init[data-id="0"]')).removeClass('inactive');
-      setTimeout(function(){
-        $('.init[data-id="1"]').removeClass('notransition').addClass('spaced two');
-        setTimeout(function(){
-          $('.init[data-id="1"]').addClass('notransition').removeClass('spaced two');
-          $('.init[data-id="4"]').detach().insertAfter($('.init[data-id="3"]')).removeClass('inactive');
-          setTimeout(function(){
-            $('.init[data-id="1"]').removeClass('notransition').addClass('spaced three');
-            setTimeout(function(){
-              $('.init[data-id="1"]').addClass('notransition').removeClass('spaced two');
-              $('.init[data-id="5"]').detach().insertAfter($('.init[data-id="4"]')).removeClass('inactive');
-              setTimeout(doCuriousAnimation,2000);
-            },500)
-          },1000)
-        },500)
-      },1000)
-    },500)
 
-  },1000)
-},1000)
+$('.init[data-id="0"]').addClass('bg grey').on('click',function(){
+  $('.init[data-id="0"]').removeClass('bg grey');
+  $('.init[data-id="1"]').addClass('spaced one');
+  setTimeout(function(){
+    $('.init[data-id="1"]').addClass('notransition').removeClass('spaced one');
+    $('.init[data-id="3"]').detach().insertAfter($('.init[data-id="0"]')).removeClass('inactive');
+    $('.init[data-id="3"]').addClass('bg grey').on('click',function(){
+      $('.init[data-id="3"]').removeClass('bg grey');
+      $('.init[data-id="1"]').removeClass('notransition').addClass('spaced two');
+      setTimeout(function(){
+        $('.init[data-id="1"]').addClass('notransition').removeClass('spaced two');
+        $('.init[data-id="4"]').detach().insertAfter($('.init[data-id="3"]')).addClass('bg grey').removeClass('inactive').on('click',function(){
+          $('.init[data-id="4"]').removeClass('bg grey');
+          $('.init[data-id="1"]').removeClass('notransition').addClass('spaced three');
+          setTimeout(function(){
+            $('.init[data-id="1"]').addClass('notransition').removeClass('spaced three');
+            $('.init[data-id="5"]').detach().insertAfter($('.init[data-id="4"]')).removeClass('inactive').addClass('bg grey').on('click',function(){
+              $('.init[data-id="5"]').removeClass('bg grey');
+              doCuriousAnimation();
+            });
+          },500)
+        });
+      },500)
+    });
+  },500);
+});
 
 doCuriousAnimation = function(){
   $('.init[data-id="6"]').detach().insertAfter('.init[data-id="2"]').removeClass('inactive').textillate({ in: { effect: 'fadeIn', shuffle: 'true', delay: 30 } });
   setTimeout(function(){
-    $('.init[data-id="7"]').detach().appendTo($('.paragraph')).fadeTo(1000,1);
-    setTimeout(doLookingBackAnimation,2000);
+    $('.init[data-id="6"]').addClass('bg grey').on('click',function(){
+      $(this).removeClass('bg grey');
+      $('.init[data-id="7"]').detach().appendTo($('.paragraph')).fadeTo(1000,1).addClass('bg grey').on('click',function(){
+        $(this).removeClass('bg grey');
+        doLookingBackAnimation();
+      });
+    })
+
+    /*setTimeout(doLookingBackAnimation,2000);*/
+
   },1500)
 }
 
@@ -187,7 +195,10 @@ doLookingBackAnimation = function(){
   $('.init[data-id="8"]').detach().appendTo($('.paragraph')).removeClass('inactive').textillate({ in: { effect: 'fadeIn', reverse: 'true', delay: 30 } });
   setTimeout(function(){
     $('.init[data-id="11"]').detach().appendTo($('.paragraph')).fadeTo(1000,1);
-    setTimeout(doSummerAnimation,2500);
+    $('.init[data-id="10"]').addClass('bg grey').on('click',function(){
+      $(this).removeClass('bg grey');
+      doSummerAnimation();
+    });
   },1000);
 }
 
@@ -197,27 +208,47 @@ doSummerAnimation = function(){
     setTimeout(function(){
       $('.init[data-id="12"]').removeClass('hot');
       setTimeout(function(){
-        $('.init[data-id="13"]').detach().insertAfter($('.init[data-id="12"]')).fadeTo(500,1,function(){
-          $('.init[data-id="13"]').removeClass('inactive').addClass('hot');
-          setTimeout(function(){
-            $('.init[data-id="13"]').removeClass('hot');
+        $('.init[data-id="12"]').addClass('bg grey').on('click',function(){
+          $(this).removeClass('bg grey');
+           $('.init[data-id="13"]').detach().insertAfter($('.init[data-id="12"]')).fadeTo(500,1,function(){
+            $('.init[data-id="13"]').removeClass('inactive').addClass('hot');
             setTimeout(function(){
-
-                $('.init[data-id="14"]').addClass('bg grey');
-                setTimeout(function(){
-                  $('.init[data-id="14"]').removeClass('bg grey');
-                  setTimeout(doReelingAnimation,1000);
-                },1000);
-
-            },1000);
-          },500);
+              $('.init[data-id="13"]').removeClass('hot');
+              $('.init[data-id="14"]').addClass('bg grey').on('click',function(){
+                $(this).removeClass('bg grey');
+                doReelingAnimation();
+              });
+            },500);
+           });
         });
+
       },500);
-    },500)
-  });
+    },500);
+  })
 }
 
 doReelingAnimation = function(){
+  $('.init[data-id="15"]').detach().insertAfter($('.init[data-id="14"]')).fadeTo(1000,1,function(){
+    $('.init[data-id="16"]').textillate({ in: { effect: 'swing', sync: 'true', delay: 30 } });
+    setTimeout(function(){
+      $('.init[data-id="16"]').addClass('bg grey').on('click',function(){
+        $(this).removeClass('bg grey');
+        $('.init[data-id="17"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
+          $('.init[data-id="17"]').addClass('pulse animated');
+          setTimeout(function(){
+            $('.init[data-id="17"]').addClass('bg grey').on('click',function(){
+              $(this).removeClass('bg grey');
+              doUnderstandAnimation();
+            });
+          },4000);
+        });
+      })
+    },1000);
+
+  });
+}
+
+/*doReelingAnimation = function(){
   $('.init[data-id="15"]').detach().insertAfter($('.init[data-id="14"]')).fadeTo(1000,1,function(){
     setTimeout(function(){
       $('.init[data-id="16"]').textillate({ in: { effect: 'swing', sync: 'true', delay: 30 } });
@@ -229,7 +260,7 @@ doReelingAnimation = function(){
       },1000);
     },1000);
   });
-}
+}*/
 
 doUnderstandAnimation = function(){
   $('.init[data-id="9"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
@@ -270,19 +301,13 @@ endQuotation = function(){
     $('.init[data-id="19"]').addClass('red');
     setTimeout(function(){
       $('.init[data-id="19"]').removeClass('red');
-      $('.init[data-id="20"]').detach().appendTo($('.paragraph')).fadeTo(1000,1,function(){
-        setTimeout(function(){
-          $('span, a').contents().unwrap();
-          $('ul, span').remove();
-
-          var $final = $("When I was a child and was being fractious  and contrary  and generally behaving badly,  my mother used to rebuke me. It's curious  but you don't think seriously about these remarks when you're young. As I look back on that interminable hot summer of 1976, that summer when England reeled, gasping for breath, I understand. She was always frightened that someone was going to come and kill her. And she had good reason.");
-
-          $('.paragraph').empty().append($final);
-
-          /*$('.paragraph').textillate({ inEffects: [], outEffects: ['hinge'], delayScale: Math.random(), in: { effect: 'none'}, out: { effect: 'hinge', shuffle: 'true', delay: 30 } });*/
-        },3000)
-      });
-    },3000);
+      setTimeout(function(){
+        $('.init[data-id="19"]').addClass('bg grey').on('click',function(){
+          $(this).removeClass('bg grey');
+          $('.init[data-id="20"]').detach().appendTo($('.paragraph')).fadeTo(1000,1);
+        });
+      },1000);
+    },1000)
   });
 }
 
